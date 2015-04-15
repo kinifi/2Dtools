@@ -72,9 +72,7 @@ public class Anim_Sprite : MonoBehaviour {
 		Loop = loopAnimation;
 		currentAnimation = _animation;
 		playAnimation = true;
-		DebugAnim("Play Multiple Animation Called: " +
-		          									  " Frames: " + _animation.Length +
-		          									  " Loop Animation: " + loopAnimation);
+		DebugAnim("Play Multiple Animation Called: " + " Frames: " + _animation.Length + " Loop Animation: " + loopAnimation);
 	}
 
 	/// <summary>
@@ -86,8 +84,7 @@ public class Anim_Sprite : MonoBehaviour {
 		Loop = true;
 		currentAnimation = _animation;
 		playAnimation = true;
-		DebugAnim("Play Single Animation Called: " +
-		          " Frames: " + _animation.Length);
+		DebugAnim("Play Single Animation Called: " + " Frames: " + _animation.Length);
 	}
 
 	/// <summary>
