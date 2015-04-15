@@ -24,7 +24,7 @@ public class Anim_Sprite : MonoBehaviour {
 	//the sprite render attached to this object
 	private SpriteRenderer _rend = null;
 
-
+	//TODO: Implement debug calls when this is true
 	//Debug the animator
 	public bool DebugAnimator = false;
 
@@ -38,6 +38,7 @@ public class Anim_Sprite : MonoBehaviour {
 	private void Start()
 	{
 		_rend = GetComponent<SpriteRenderer>();
+		DebugAnim("Getting SpriteRenderer");
 	}
 
 	// Update is called once per frame
@@ -71,7 +72,9 @@ public class Anim_Sprite : MonoBehaviour {
 		Loop = loopAnimation;
 		currentAnimation = _animation;
 		playAnimation = true;
-		
+		DebugAnim("Play Multiple Animation Called: " +
+		          									  " Frames: " + _animation.Length +
+		          									  " Loop Animation: " + loopAnimation);
 	}
 
 	/// <summary>
@@ -83,7 +86,9 @@ public class Anim_Sprite : MonoBehaviour {
 		Loop = true;
 		currentAnimation = _animation;
 		playAnimation = true;
-		
+		DebugAnim("Play Single Animation Called: " +
+		          " Frames: " + _animation.Length +
+		          " Loop Animation: " + loopAnimation);
 	}
 
 	/// <summary>
@@ -92,6 +97,7 @@ public class Anim_Sprite : MonoBehaviour {
 	public void ContinuePlaying()
 	{
 		playAnimation = true;
+		DebugAnim("Continuing Play");
 	}
 
 	/// <summary>
@@ -100,6 +106,7 @@ public class Anim_Sprite : MonoBehaviour {
 	public void StopPlaying()
 	{
 		playAnimation = false;
+		DebugAnim("Animation Stopped");
 	}
 
 	/// <summary>
@@ -108,6 +115,7 @@ public class Anim_Sprite : MonoBehaviour {
 	/// <returns><c>true</c>, if playing was ised, <c>false</c> otherwise.</returns>
 	public bool isPlaying()
 	{
+		DebugAnim("isPlaying Value: " + playAnimation);
 		return playAnimation;
 	}
 
@@ -155,6 +163,7 @@ public class Anim_Sprite : MonoBehaviour {
 		{
 			if(Loop)
 			{
+				DebugAnim("Resetting frames, starting Animation loop over");
 				currentFrameCounter = 0;
 				counter = 0.0f;
 			}
@@ -171,6 +180,7 @@ public class Anim_Sprite : MonoBehaviour {
 	/// </summary>
 	public void onAnimationEnter()
 	{
+		DebugAnim("OnSpriteEnter is being called");
 		SendMessage("OnSpriteEnter", SendMessageOptions.DontRequireReceiver);
 	}
 
@@ -179,11 +189,20 @@ public class Anim_Sprite : MonoBehaviour {
 	/// </summary>
 	public void onAnimationComplete()
 	{
+		DebugAnim("OnSpriteExit is being called");
 		SendMessage("OnSpriteExit", SendMessageOptions.DontRequireReceiver);
 	}
 
 	#endregion
 
+
+	private void DebugAnim(string log)
+	{
+		if(DebugAnimator)
+		{
+			Debug.LogWarning(log);
+		}
+	}
 
 
 }
