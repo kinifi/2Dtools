@@ -87,8 +87,7 @@ public class Anim_Sprite : MonoBehaviour {
 		currentAnimation = _animation;
 		playAnimation = true;
 		DebugAnim("Play Single Animation Called: " +
-		          " Frames: " + _animation.Length +
-		          " Loop Animation: " + loopAnimation);
+		          " Frames: " + _animation.Length);
 	}
 
 	/// <summary>
