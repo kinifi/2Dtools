@@ -78,11 +78,17 @@ Example Code for Setup
 ```
 
 	/// <summary>
+	/// Sets the frame rate
+	/// </summary>
+	/// <param name="_newFrameRate">_new frame rate.</param>
+	public void setFrameRate(int _newFrameRate)
+
+	/// <summary>
 	/// Play the specified Animation
 	/// </summary>
 	/// <param name="_animation">_animation.</param>
 	/// <param name="loopAnimation">If set to <c>true</c> loop animation.</param>
-	public void PlayMultiple(Sprite[] _animation, bool loopAnimation)
+	public void PlayMultiple(Sprite[] _animation, bool loopAnimation, int frameRate)
 
 	/// <summary>
 	/// Play the specified Single Sprite Animation
