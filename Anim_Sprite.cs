@@ -126,15 +126,28 @@ public class Anim_Sprite : MonoBehaviour {
 	}
 
 
+
+	/// <summary>
+	/// Flip the sprite on the Y axis
+	/// </summary>
+	public void FlipY() {
+		
+		Vector3 theScale = transform.localScale;
+		theScale.y *= -1;
+		transform.localScale = theScale;
+		DebugAnim("Flip Y Axis");
+	}
+
+
 	/// <summary>
 	/// Flip the sprite on the x axis
 	/// </summary>
-	public void Flip() {
+	public void FlipX() {
 
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
-
+		DebugAnim("Flip X Axis");
 	}
 
 	#endregion
