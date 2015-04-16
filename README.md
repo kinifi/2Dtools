@@ -115,8 +115,12 @@ Example Code for Setup
 	/// <summary>
 	/// Flip the sprite on the x axis
 	/// </summary>
-	public void Flip()
+	public void FlipX()
 
+	/// <summary>
+	/// Flip the sprite on the Y axis
+	/// </summary>
+	public void FlipY()
 
 ```
 
