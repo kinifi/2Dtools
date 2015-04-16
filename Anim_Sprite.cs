@@ -18,6 +18,7 @@ public class Anim_Sprite : MonoBehaviour {
 
 	//Is the animation playing
 	private bool playAnimation = false;
+
 	//Should we loop the animation
 	private bool Loop = false;
 
@@ -113,6 +114,18 @@ public class Anim_Sprite : MonoBehaviour {
 	{
 		DebugAnim("isPlaying Value: " + playAnimation);
 		return playAnimation;
+	}
+
+
+	/// <summary>
+	/// Flip the sprite on the x axis
+	/// </summary>
+	public void Flip() {
+
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+
 	}
 
 	#endregion
