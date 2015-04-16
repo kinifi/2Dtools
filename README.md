@@ -106,6 +106,11 @@ Example Code for Setup
 	/// <returns><c>true</c>, if playing was ised, <c>false</c> otherwise.</returns>
 	public bool isPlaying()
 
+	/// <summary>
+	/// Flip the sprite on the x axis
+	/// </summary>
+	public void Flip()
+
 
 ```
 
