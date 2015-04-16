@@ -138,3 +138,9 @@ void OnSpriteExit()
 
 ```
 
+#Q&A
+
+- Looked into Resources loading and this would be find on PC but not on consoles. It loads way to slow. 
+- No way in Runtime to change any of the settings you can do from the editor
+- Sprite resolution would need to be handled by you manually. 
+
