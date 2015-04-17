@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent (typeof (SpriteRenderer))]
 public class Anim_Sprite : MonoBehaviour {
@@ -12,6 +14,7 @@ public class Anim_Sprite : MonoBehaviour {
 	
 	//Set a counter so the animation can be based on time
 	private float counter = 0.0f;
+
 	//The current frame counter that isn't time based but sprite based
 	//Example: 0 = first sprite
 	private int currentFrameCounter = 0;
@@ -24,10 +27,26 @@ public class Anim_Sprite : MonoBehaviour {
 
 	//the sprite render attached to this object
 	private SpriteRenderer _rend = null;
-
-	//TODO: Implement debug calls when this is true
+	
 	//Debug the animator
 	public bool DebugAnimator = false;
+
+	/// <summary>
+	/// List of the Animations Class stored in one area
+	/// </summary>
+	public List<Animations> animationsToPlay = new List<Animations>();
+
+	
+	/// <summary>
+	/// Animations Class to store all the animations needed
+	/// </summary>
+	public class Animations 
+	{
+		public string name;
+		public Sprite[] animation;
+		public int frameRate;
+		public bool loop;
+	}
 
 	#region event bools
 
@@ -62,6 +81,63 @@ public class Anim_Sprite : MonoBehaviour {
 
 	#region Public API for consumption and manipulation
 
+
+	/// <summary>
+	/// Stores an Animation for later use
+	/// </summary>
+	/// <param name="name">Name.</param>
+	/// <param name="animation">Animation.</param>
+	/// <param name="frameRate">Frame rate; default = 12</param>
+	/// <param name="loop">If set to <c>true</c> loop.</param>
+	public void storeAnimation(string name, Sprite[] animation, int frameRate, bool loop)
+	{
+		Animations _anim = new Animations();
+		_anim.animation = animation;
+		_anim.name = name;
+		_anim.frameRate = frameRate;
+		_anim.loop = loop;
+
+		animationsToPlay.Add(_anim);
+		DebugAnim("Stored Animation: " + _anim.name);
+	}
+
+	/// <summary>
+	/// Plays the Stored Animation
+	/// </summary>
+	/// <param name="animationName">Animation name; Not Case Sensitive </param>
+	public void playStoredAnimation(string animationName)
+	{
+		DebugAnim("Searching for animation in list");
+		//search through the stored animations and see if it exists
+		for (int i = 0; i < animationsToPlay.Count; i++) 
+		{
+			//lower case all the animation names so we dont have to worry about case sensitivity
+			if(animationName.ToLower() == animationsToPlay[i].name.ToLower())
+			{
+				DebugAnim("Animation Found: " + animationsToPlay[i].name);
+				//check to see if we have a single sprite animation or a multiple
+				if(animationsToPlay[i].animation.Length == 1)
+				{
+					//play single
+					PlaySingle(animationsToPlay[i].animation);
+				}
+				else
+				{
+					//play multiple
+					PlayMultiple(animationsToPlay[i].animation, animationsToPlay[i].loop, animationsToPlay[i].frameRate);
+				}
+			}
+			else if(i == animationsToPlay.Count -1)
+			{
+				//throw an error if they are trying to play an animation that doesn't exist
+				Debug.LogError("No Animation Name: " + animationName);
+			}
+		}
+
+
+	}
+
+
 	/// <summary>
 	/// Sets the frame rate
 	/// </summary>
@@ -69,6 +145,7 @@ public class Anim_Sprite : MonoBehaviour {
 	public void setFrameRate(int _newFrameRate)
 	{
 		frameRate = _newFrameRate;
+		DebugAnim("Set new frameRate: " + _newFrameRate);
 	}
 
 	/// <summary>
@@ -125,8 +202,6 @@ public class Anim_Sprite : MonoBehaviour {
 		return playAnimation;
 	}
 
-
-
 	/// <summary>
 	/// Flip the sprite on the Y axis
 	/// </summary>
@@ -135,7 +210,7 @@ public class Anim_Sprite : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.y *= -1;
 		transform.localScale = theScale;
-		DebugAnim("Flip Y Axis");
+		DebugAnim("Flipping Sprite Y Axis");
 	}
 
 
@@ -147,7 +222,7 @@ public class Anim_Sprite : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
-		DebugAnim("Flip X Axis");
+		DebugAnim("Flipping Sprite X Axis");
 	}
 
 	#endregion
