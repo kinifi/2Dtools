@@ -28,6 +28,8 @@ Example Code for Setup
 
 *How To Use*
 
+There are two different ways to use this API. Locally and Stored. Both are setup very similar. Code is commented below to show you how this works
+
 ```
 
 	private Anim_Sprite _animator;
@@ -41,9 +43,14 @@ Example Code for Setup
 
 	// Use this for initialization
 	void Start () {
-    //get the Anim_Sprite class
+    		
+    		//get the Anim_Sprite class
 		_animator = GetComponent<Anim_Sprite>();
-
+		
+		//STORE USAGE: Send your animation Name, Sprite Array, frame rate, and loop type once
+		//this is done once in the beginning so you dont have to call ALL INFORMATION again
+		//_animator.storeAnimation("Run", runAnimation, 16, true);
+		
 	}
 
 	private void Update()
@@ -54,12 +61,17 @@ Example Code for Setup
 
 		if(hx > 0.8f)
 		{
-		//play the run animation
+			//play the run animation
+			//LOCAL USAGE: pass all the parameters you need to play
 			_animator.PlayMultiple(runAnimation, true);
+			
+			//STORE USAGE: Above in the Start Method we already sent our info, now just call [1/2]
+			// [2/2] the animation by name
+			//_animator.playStoredAnimation("Run2");
 		}
 		else if(hx < -0.8f)
 		{
-		//play the other run animation
+			//play the other run animation
 			_animator.PlayMultiple(secondRun, true);
 		}
 		else
@@ -76,6 +88,21 @@ Example Code for Setup
 *API:*
 
 ```
+
+	/// <summary>
+	/// Stores an Animation for later use
+	/// </summary>
+	/// <param name="name">Name.</param>
+	/// <param name="animation">Animation.</param>
+	/// <param name="frameRate">Frame rate; default = 12</param>
+	/// <param name="loop">If set to <c>true</c> loop.</param>
+	public void storeAnimation(string name, Sprite[] animation, int frameRate, bool loop)
+	
+	/// <summary>
+	/// Plays the Stored Animation
+	/// </summary>
+	/// <param name="animationName">Animation name; Not Case Sensitive </param>
+	public void playStoredAnimation(string animationName)
 
 	/// <summary>
 	/// Sets the frame rate
