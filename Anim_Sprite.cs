@@ -127,11 +127,7 @@ public class Anim_Sprite : MonoBehaviour {
 					PlayMultiple(animationsToPlay[i].animation, animationsToPlay[i].loop, animationsToPlay[i].frameRate);
 				}
 			}
-			else if(i == animationsToPlay.Count -1)
-			{
-				//throw an error if they are trying to play an animation that doesn't exist
-				Debug.LogError("No Animation Name: " + animationName);
-			}
+
 		}
 
 
